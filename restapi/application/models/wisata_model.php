@@ -10,4 +10,10 @@ class wisata_model extends CI_Model
             return $this->db->get_where('wisata',['nama' => $nama])->result_array(); 
         }
     }
+
+    public function deleteWisata($nama)
+    {
+        $this->db->delete('wisata',['nama' => $nama]);
+        return $this->db->affected_rows();
+    }
 }

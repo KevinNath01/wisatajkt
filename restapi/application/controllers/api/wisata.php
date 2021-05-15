@@ -34,4 +34,29 @@ class wisata extends REST_Controller
             ], REST_Controller::HTTP_NOT_FOUND);  
         }
     } 
+
+    public function index_delete()
+    {
+        $nama = $this->delete('nama');
+
+        if($nama === null){
+            $this->response([
+                'status' => FALSE,
+                'data' => 'Provide Name'
+            ], REST_Controller::HTTP_BAD_REQUEST); 
+        } else {
+            if($this->wisata_model->deleteWisata($nama) > 0 ){
+                $this->response([
+                    'status' => TRUE,
+                    'nama' => $nama,
+                    'massage' => 'Deleted'
+                ], REST_Controller::HTTP_NO_CONTENT); 
+            } else {
+                $this->response([
+                    'status' => FALSE,
+                    'data' => 'Item not found'
+                ], REST_Controller::HTTP_NOT_FOUND);  
+            }        
+        }
+    }
 }

@@ -16,4 +16,14 @@ class wisata_model extends CI_Model
         $this->db->delete('wisata',['nama' => $nama]);
         return $this->db->affected_rows();
     }
+
+    public function createWisata($data){
+        $this->db->insert('wisata', $data);
+        return $this->db->affected_rows();
+    }
+
+    public function updateWisata($data, $id_wisata){
+        $this->db->update('wisata', $data, ['id_wisata' => $id_wisata]);
+        return $this->db->affected_rows();
+    }
 }

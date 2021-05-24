@@ -17,6 +17,29 @@ class Auth extends BD_Controller {
         $this->load->model('M_main');
     }
 
+    public function register_post()
+    {
+            $username = $this->post('username');
+            $password = sha1($this->post('password'));
+        
+        if($this->M_main->cekdata($username) > 0){
+            $this->response([
+                'status' => FALSE,
+                'data' => 'User sudah terdaftar !'
+            ], REST_Controller::HTTP_BAD_REQUEST);  
+        }     
+        else if($this->M_main->reguser($username,$password) > 0){
+            $this->response([
+                'status' => TRUE,
+                'massage' => 'User telah ditambahkan'
+            ], REST_Controller::HTTP_CREATED);  
+        } else {
+            $this->response([
+                'status' => FALSE,
+                'data' => 'Gagal membuat data baru'
+            ], REST_Controller::HTTP_BAD_REQUEST);  
+        }     
+        }
     
 
     public function login_post()

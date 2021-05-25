@@ -34,7 +34,14 @@ class Main extends BD_Controller {
     } 
 
     public function index_delete()
-    {
+    {   
+        $theCredential = $this->user_data;
+        $userinput = json_encode($theCredential);
+        $word = '"username":"admin"';
+        //var_dump($userinput);
+        
+        if(strpos($userinput, $word) !== false){
+            
         $nama = $this->delete('nama');
 
         if($nama === null){
@@ -56,37 +63,62 @@ class Main extends BD_Controller {
                 ], REST_Controller::HTTP_NOT_FOUND);  
             }        
         }
+        } else{
+            $this->response([
+                'status' => FALSE,
+                'message' => 'You are not authorized to use this method'
+            ], REST_Controller::HTTP_UNAUTHORIZED);
+        }
+
     }
 
     public function index_post()
     {
-        $data = [
-           'nama' => $this->post('nama'), 
-           'alamat' => $this->post('alamat'), 
-           'lokasi' => $this->post('lokasi'), 
-           'gambar' => $this->post('gambar'),
-           'telepon' => $this->post('telepon'),
-           'operasional' => $this->post('operasional'),
-           'website' => $this->post('website'),
-           'keterangan' => $this->post('keterangan')
-        ];
-
-        if($this->wisata_model->createWisata($data) > 0){
-            $this->response([
-                'status' => TRUE,
-                'massage' => 'Wisata telah ditambahkan'
-            ], REST_Controller::HTTP_CREATED);  
-        } else {
+        $theCredential = $this->user_data;
+        $userinput = json_encode($theCredential);
+        $word = '"username":"admin"';
+        //var_dump($userinput);
+        
+        if(strpos($userinput, $word) !== false){
+            $data = [
+                'nama' => $this->post('nama'), 
+                'alamat' => $this->post('alamat'), 
+                'lokasi' => $this->post('lokasi'), 
+                'gambar' => $this->post('gambar'),
+                'telepon' => $this->post('telepon'),
+                'operasional' => $this->post('operasional'),
+                'website' => $this->post('website'),
+                'keterangan' => $this->post('keterangan')
+             ];
+     
+             if($this->wisata_model->createWisata($data) > 0){
+                 $this->response([
+                     'status' => TRUE,
+                     'massage' => 'Wisata telah ditambahkan'
+                 ], REST_Controller::HTTP_CREATED);  
+             } else {
+                 $this->response([
+                     'status' => FALSE,
+                     'data' => 'Gagal membuat data baru'
+                 ], REST_Controller::HTTP_BAD_REQUEST);  
+             } 
+        } else{
             $this->response([
                 'status' => FALSE,
-                'data' => 'Gagal membuat data baru'
-            ], REST_Controller::HTTP_BAD_REQUEST);  
-        } 
+                'message' => 'You are not authorized to use this method'
+            ], REST_Controller::HTTP_UNAUTHORIZED);
+        }
     }
 
     public function index_put()
     {
-        $id_wisata = $this->put('id_wisata');
+        $theCredential = $this->user_data;
+        $userinput = json_encode($theCredential);
+        $word = '"username":"admin"';
+        //var_dump($userinput);
+        
+        if(strpos($userinput, $word) !== false){
+            $id_wisata = $this->put('id_wisata');
         $data = [
             'nama' => $this->put('nama'), 
             'alamat' => $this->put('alamat'), 
@@ -108,20 +140,37 @@ class Main extends BD_Controller {
                 'data' => 'Gagal update data'
             ], REST_Controller::HTTP_BAD_REQUEST);  
         } 
+        } else{
+            $this->response([
+                'status' => FALSE,
+                'message' => 'You are not authorized to use this method'
+            ], REST_Controller::HTTP_UNAUTHORIZED);
+        }
     }
 
 
 
 
-
+/*===TEST CODE===
 
 	public function test_post()
 	{
        
         $theCredential = $this->user_data;
-        $this->response($theCredential, 200); // OK (200) being the HTTP response code
+        $userinput = json_encode($theCredential);
+        $word = '"username":"admin"';
+        //var_dump($userinput);
         
-	}
+        if(strpos($userinput, $word) !== false){
+            $this->response($theCredential, 200);
+        } else{
+            $this->response([
+                'status' => FALSE,
+                'message' => 'You are not authorized to use this method'
+            ], REST_Controller::HTTP_UNAUTHORIZED);
+        }
+        //$this->response($theCredential, 200); // OK (200) being the HTTP response code
+    }
 
     public function users_get()
     {
@@ -215,3 +264,4 @@ class Main extends BD_Controller {
     }
 
 }
+*/

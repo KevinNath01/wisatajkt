@@ -11,6 +11,7 @@ class Main extends BD_Controller {
         $this->load->model('wisata_model');
     }
 	
+    /*======Change to non authentication======
     public function index_get()
     {
         $nama = $this->get('nama');
@@ -32,6 +33,7 @@ class Main extends BD_Controller {
             ], REST_Controller::HTTP_NOT_FOUND);  
         }
     } 
+    */
 
     public function index_delete()
     {   
@@ -66,7 +68,7 @@ class Main extends BD_Controller {
         } else{
             $this->response([
                 'status' => FALSE,
-                'message' => 'You are not authorized to use this method'
+                'message' => 'This method is unavailable'
             ], REST_Controller::HTTP_UNAUTHORIZED);
         }
 
@@ -105,7 +107,7 @@ class Main extends BD_Controller {
         } else{
             $this->response([
                 'status' => FALSE,
-                'message' => 'You are not authorized to use this method'
+                'message' => 'This method is unavailable'
             ], REST_Controller::HTTP_UNAUTHORIZED);
         }
     }
@@ -143,38 +145,63 @@ class Main extends BD_Controller {
         } else{
             $this->response([
                 'status' => FALSE,
-                'message' => 'You are not authorized to use this method'
+                'message' => 'This method is unavailable'
             ], REST_Controller::HTTP_UNAUTHORIZED);
         }
     }
 
-    public function users_post()
+    public function user_post()
 	{
-       
         $theCredential = $this->user_data;
         $userinput = json_encode($theCredential);
-        $word = '"username":"admin"';
-        //var_dump($userinput);
-        
-        if(strpos($userinput, $word) !== false){
-            var_dump($userinput);
-            
-            $this->response($theCredential, 200);
-            //var_dump($theCredential);
-        } else{
             $this->response([
-                'status' => FALSE,
-                'message' => 'You are not authorized to use this method'
-            ], REST_Controller::HTTP_UNAUTHORIZED);
+                'status' => TRUE,
+                'id' => $theCredential->id,
+                'Username' => $theCredential->username,
+                'Initial Time' => date('d/m/Y H:i:s',$theCredential->iat),
+                'Expired' => date('d/m/Y H:i:s', $theCredential->exp)
+            ], REST_Controller::HTTP_OK);
         }
         //$this->response($theCredential, 200); // OK (200) being the HTTP response code
-    }
+    
+        public function user_get()
+        {   
+            $theCredential = $this->user_data;
+            $userinput = json_encode($theCredential);
+            $word = '"username":"admin"';
+
+            if(strpos($userinput, $word) !== false){
+            $nama = $this->get('username');
+            if($nama === null){
+            $user = $this->wisata_model->getuser();
+            }else{
+            $user = $this->wisata_model->getuser($nama);
+            }
+            
+            
+            if($user){
+                $this->response([
+                    'status' => TRUE,
+                    'data' => $user
+                ], REST_Controller::HTTP_OK); 
+            } else {
+                $this->response([
+                    'status' => FALSE,
+                    'data' => 'not found'
+                ], REST_Controller::HTTP_NOT_FOUND);  
+            }
+            }else{
+                $this->response([
+                    'status' => FALSE,
+                    'message' => 'This method is unavailable'
+                ], REST_Controller::HTTP_UNAUTHORIZED);
+            }
+        } 
 
 
 
 
-
-
+/* ==========TEST CODE============
 	public function test_post()
 	{
        
@@ -184,11 +211,19 @@ class Main extends BD_Controller {
         //var_dump($userinput);
         
         if(strpos($userinput, $word) !== false){
-            $this->response($theCredential, 200);
+            $this->response([
+                'status' => TRUE,
+                'id' => $theCredential->id,
+                'Username' => $theCredential->username,
+                'Initial Time' => date('d/m/Y H:i:s',$theCredential->iat),
+                'Expired' => date('d/m/Y H:i:s', $theCredential->exp)
+
+            ], REST_Controller::HTTP_OK);
+            //$this->response($theCredential->iat);
         } else{
             $this->response([
                 'status' => FALSE,
-                'message' => 'You are not authorized to use this method'
+                'message' => 'This method is unavailable'
             ], REST_Controller::HTTP_UNAUTHORIZED);
         }
         //$this->response($theCredential, 200); // OK (200) being the HTTP response code
@@ -284,5 +319,5 @@ class Main extends BD_Controller {
 
         $this->set_response($message, REST_Controller::HTTP_NO_CONTENT); // NO_CONTENT (204) being the HTTP response code
     }
-
+*/
 }

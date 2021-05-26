@@ -57,9 +57,18 @@ class Auth extends BD_Controller {
             $token['username'] = $u;
             $date = new DateTime();
             $token['iat'] = $date->getTimestamp();
-            $token['exp'] = $date->getTimestamp() + 60*60*5; //To here is to generate token
-            $output['token'] = JWT::encode($token,$kunci ); //This is the output token
-            $this->set_response($output, REST_Controller::HTTP_OK); //This is the respon if success
+            $token['exp'] = $date->getTimestamp() + 60*60*17; //To here is to generate token
+            $expied = date('d/m/Y H:i:s', $token['exp']);
+            //var_dump($expied);
+            $output = JWT::encode($token,$kunci ); //This is the output token
+            $this->set_response([
+                'Status' => TRUE,
+                'Token' => $output,
+                'Massage' => "Your Token Expired in 12 Hour",
+                'Expired' => $expied
+            ], REST_Controller::HTTP_OK);
+
+            //$this->set_response($output, REST_Controller::HTTP_OK); //This is the respon if success
         }
         else {
             $this->set_response($invalidLogin, REST_Controller::HTTP_NOT_FOUND); //This is the respon if failed

@@ -148,10 +148,32 @@ class Main extends BD_Controller {
         }
     }
 
+    public function users_post()
+	{
+       
+        $theCredential = $this->user_data;
+        $userinput = json_encode($theCredential);
+        $word = '"username":"admin"';
+        //var_dump($userinput);
+        
+        if(strpos($userinput, $word) !== false){
+            var_dump($userinput);
+            
+            $this->response($theCredential, 200);
+            //var_dump($theCredential);
+        } else{
+            $this->response([
+                'status' => FALSE,
+                'message' => 'You are not authorized to use this method'
+            ], REST_Controller::HTTP_UNAUTHORIZED);
+        }
+        //$this->response($theCredential, 200); // OK (200) being the HTTP response code
+    }
 
 
 
-/*===TEST CODE===
+
+
 
 	public function test_post()
 	{
@@ -264,4 +286,3 @@ class Main extends BD_Controller {
     }
 
 }
-*/

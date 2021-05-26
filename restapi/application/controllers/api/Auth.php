@@ -25,7 +25,7 @@ class Auth extends BD_Controller {
         if($this->M_main->cekdata($username) > 0){
             $this->response([
                 'status' => FALSE,
-                'data' => 'User sudah terdaftar !'
+                'data' => 'Username is taken !'
             ], REST_Controller::HTTP_BAD_REQUEST);  
         }     
         else if($this->M_main->reguser($username,$password) > 0){

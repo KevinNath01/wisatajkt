@@ -44,20 +44,20 @@ class Main extends BD_Controller {
         
         if(strpos($userinput, $word) !== false){
             
-        $nama = $this->delete('nama');
+        $id = $this->delete('id_wisata');
 
-        if($nama === null){
+        if($id === null){
             $this->response([
                 'status' => FALSE,
-                'data' => 'Provide Name'
+                'data' => 'Provide Id'
             ], REST_Controller::HTTP_BAD_REQUEST); 
         } else {
-            if($this->wisata_model->deleteWisata($nama) > 0 ){
+            if($this->wisata_model->deleteWisata($id) > 0 ){
                 $this->response([
                     'status' => TRUE,
-                    'data' => $nama,
+                    'data' => $id,
                     'massage' => 'Telah Dihapus dari Database'
-                ], REST_Controller::HTTP_NO_CONTENT); 
+                ], REST_Controller::HTTP_OK); 
             } else {
                 $this->response([
                     'status' => FALSE,

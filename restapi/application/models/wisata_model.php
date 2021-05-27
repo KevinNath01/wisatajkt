@@ -11,9 +11,9 @@ class wisata_model extends CI_Model
         }
     }
 
-    public function deleteWisata($nama)
+    public function deleteWisata($id)
     {
-        $this->db->delete('wisata',['nama' => $nama]);
+        $this->db->delete('wisata',['id_wisata' => $id]);
         return $this->db->affected_rows();
     }
 

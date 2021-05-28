@@ -1,14 +1,9 @@
 {
-    "_readme": [
-        "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
-        "This file is @generated automatically"
-    ],
-    "content-hash": "c5c8187f54efa66fd4ab39a4d6caa4a9",
     "packages": [
         {
             "name": "codeigniter/framework",
             "version": "3.1.11",
+            "version_normalized": "3.1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bcit-ci/CodeIgniter.git",
@@ -30,7 +25,9 @@
             "suggest": {
                 "paragonie/random_compat": "Provides better randomness in PHP 5.x"
             },
+            "time": "2019-09-19T12:08:45+00:00",
             "type": "project",
+            "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -44,18 +41,9 @@
                 "source": "https://github.com/bcit-ci/CodeIgniter",
                 "wiki": "https://github.com/bcit-ci/CodeIgniter/wiki"
             },
-            "time": "2019-09-19T12:08:45+00:00"
+            "install-path": "../codeigniter/framework"
         }
     ],
-    "packages-dev": [],
-    "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
-    "prefer-stable": false,
-    "prefer-lowest": false,
-    "platform": {
-        "php": ">=5.4.0"
-    },
-    "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "dev": true,
+    "dev-package-names": []
 }

@@ -1,0 +1,9 @@
+endpoint : 
+post auth/register
+post auth/login
+get wisata/index
+post main/index
+put main/index
+post main/user
+get main/user
+del main/index

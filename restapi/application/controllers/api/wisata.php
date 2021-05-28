@@ -3,7 +3,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 use \Firebase\JWT\JWT;
 
-class wisata extends BD_Controller {
+class Wisata extends BD_Controller {
 
     function __construct()
     {

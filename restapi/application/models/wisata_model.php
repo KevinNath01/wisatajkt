@@ -1,6 +1,6 @@
 <?php
 
-class wisata_model extends CI_Model
+class Wisata_model extends CI_Model
 {
     public function getwisata($nama = null)
     {

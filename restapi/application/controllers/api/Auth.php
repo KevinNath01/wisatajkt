@@ -22,7 +22,7 @@ class Auth extends BD_Controller {
             $username = $this->post('username');
             $password = sha1($this->post('password'));
         
-        if($this->M_main->cekdata($username) > 0){
+        if($this->m_main->cekdata($username) > 0){
             $this->response([
                 'status' => FALSE,
                 'data' => 'Username is taken !'
